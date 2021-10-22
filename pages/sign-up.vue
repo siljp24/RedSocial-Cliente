@@ -7,5 +7,11 @@
 <script>
 export default {
     layout: 'auth',
+    created (){
+        const token = localStorage.getItem('token');
+        if(token){
+            this.$router.push('/home');
+        }
+    }
 }
 </script>
