@@ -2,16 +2,52 @@
     <div class="rs-upload">
         <RsCard title="Upload" icon="mdi-cloud-upload">
             <div class="rs-upload-container">
-               <v-form>
-                   <v-file-input outlined prepend-icon="" placeholder="File"></v-file-input>
-                   <v-text-field outlined name="title" placeholder=" Image Title"></v-text-field>
-                   <v-textarea outlined name="description" placeholder="Description"></v-textarea>
+                   <v-file-input outlined prepend-icon="" placeholder="File" v-model="image"></v-file-input>
+                   <v-text-field outlined name="title" placeholder=" Image Title" v-model="title"></v-text-field>
+                   <v-textarea outlined name="description" placeholder="Description" v-model="description"></v-textarea>
                    <div class="rs-btn-container d-flex justify-end">
-                        <v-btn color="success" type="submit">Submit</v-btn>
+                        <v-btn color="success" type="submit" v-on:click="submit">Submit</v-btn>
                    </div>
-
-                </v-form> 
             </div>
         </RsCard>
     </div>
 </template>
+
+<script>
+export default {
+    data(){
+        return{
+            image:undefined,
+            title:'',
+            description:'',
+        }
+    },
+    methods:{
+        async submit(){
+            try{
+                const formData = new FormData();
+                formData.enctype = 'multipart/form-data';
+                formData.append('image', this.image);
+                formData.append('title', this.title);
+                formData.append('description', this.description);
+                const token = localStorage.getItem('token');
+                const res = await fetch('http://localhost:4500/api/post/upload', {
+                    method:'post',
+                    headers:{
+                        token: token,
+                    },
+                    body: formData,
+                        
+                })
+                const data = await res.json();
+                if(data.error){
+                    alert(data.error);
+                    return
+                }
+            }catch(err){
+                alert(err.message);
+            }
+        }
+    }
+}
+</script>

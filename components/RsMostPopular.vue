@@ -3,8 +3,8 @@
         <RsCard title="Most Popular" icon="mdi-camera-image">
         <div class="rs-images-container">
             <v-row class="pa-2">
-                <v-col cols="6" v-for="image in images" :key="image.id" class="-rs-images-container-item">
-                    <v-img :src="image.url"></v-img>
+                <v-col cols="6" v-for="post in posts" :key="post._id" class="-rs-images-container-item">
+                    <v-img :src="post.image" v-on:click="onClick(post._id)"></v-img>
                 </v-col>
             </v-row>
     
@@ -17,24 +17,37 @@
 export default {
     data(){
         return{
-            images:[
-                {
-                    id:1,
-                    url:'https://picsum.photos/id/237/200/300'
-                },
-                {
-                    id:2,
-                    url:'https://picsum.photos/seed/picsum/200/300'
-                },
-                {
-                    id:3,
-                    url:'https://picsum.photos/200/300?grayscale'
-                },
-                {
-                    id:4,
-                    url:'https://picsum.photos/id/237/200/300'
-                },
-            ]
+            posts:[],
+            onFetch: undefined,
+        }
+    },
+    async beforeMount(){
+        this.onFetch = setInterval(async ()=>{
+            await this.loadMostPopular()
+        }, 2000)
+    },
+    beforeDestroy(){
+        clearInterval(this.onFetch);
+    },
+    methods:{
+        async loadMostPopular(){
+            try{
+                const res = await fetch('http://localhost:4500/api/post/mostPopular');
+                const data = await res.json();
+                if(data.error){
+                    console.log(data.error);
+                    return;
+                }
+                this.posts = [];
+                data.posts.forEach((post)=>{
+                    this.posts.push(post);
+                })
+            }catch(err){
+                console.log(err);
+            }
+        },
+        onClick(postId){
+            this.$router.push(`/details/${postId}`);
         }
     }
 }

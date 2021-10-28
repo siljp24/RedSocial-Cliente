@@ -3,10 +3,11 @@
         <RsCard title="Latest Comments" icon="mdi-comment">
             <RsCommenItem 
             v-for="comment in comments" 
-            :key="comment.id" 
-            :image="comment.image"
-            :email="comment.email"
-            :comment="comment.comment"/>
+            :key="comment.comment._id" 
+            :image="comment.post.image"
+            :email="comment.user.email"
+            :comment="comment.comment.description"
+            :postId="comment.post._id"/>
         </RsCard>
     </div>
 </template>
@@ -15,32 +16,27 @@
 export default {
     data(){
         return{
-            comments:[
-                {
-                    id:1,
-                    image:'https://picsum.photos/200',
-                    email:'pepe@gmail.com',
-                    comment:'orem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam posuere.',
-                },
-                {
-                    id:2,
-                    image:'https://picsum.photos/200/300',
-                    email:'jose@gmail.com',
-                    comment:'orem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam posuere.',
-                },
-                {
-                    id:3,
-                    image:'https://picsum.photos/id/237/200/300',
-                    email:'maria@gmail.com',
-                    comment:'orem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam posuere.',
-                },
-                {
-                    id:4,
-                    image:'https://picsum.photos/seed/picsum/200/300',
-                    email:'ana@gmail.com',
-                    comment:'orem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam posuere.',
-                },
-            ]
+            comments:[],
+        }
+    },
+    async beforeMount(){
+        await this.loadComments()
+    },
+    methods:{
+        async loadComments(){
+            try{
+                const res = await fetch('http://localhost:4500/api/comment/lastestComments');
+                const data = await res.json();
+                if(data.error){
+                    console.log(data.error);
+                    return;
+                }
+                for(const comment of data.comments){
+                    this.comments.push(comment);
+                }
+            }catch(err){
+                console.log(err);
+            }
         }
     }
 }
