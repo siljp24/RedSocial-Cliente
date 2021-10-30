@@ -26,7 +26,7 @@ export default {
             await this.loadMostPopular()
         }, 2000)
     },
-    beforeDestroy(){
+    destroyed(){
         clearInterval(this.onFetch);
     },
     methods:{

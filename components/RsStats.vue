@@ -14,7 +14,7 @@
                     </v-list-item>
                      <v-list-item>
                         <v-list-item-icon><v-icon>mdi-comment</v-icon></v-list-item-icon>
-                        <v-list-item-content>{{ stats.comments }}# comments</v-list-item-content>
+                        <v-list-item-content>{{ stats.comments }} comments</v-list-item-content>
                     </v-list-item>
                      <v-list-item>
                         <v-list-item-icon><v-icon>mdi-eye-settings</v-icon></v-list-item-icon>
@@ -22,12 +22,10 @@
                     </v-list-item>
                      <v-list-item>
                         <v-list-item-icon><v-icon>mdi-thumb-up</v-icon></v-list-item-icon>
-                        <v-list-item-content>{{ stats.likes }}#likes</v-list-item-content>
+                        <v-list-item-content>{{ stats.likes }} likes</v-list-item-content>
                     </v-list-item>
                 </v-list>
         </RsCard>
-            <!-- </v-card-text>
-        </v-card> -->
     </div>
 </template>
 

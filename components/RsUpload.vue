@@ -41,11 +41,11 @@ export default {
                 })
                 const data = await res.json();
                 if(data.error){
-                    alert(data.error);
+                    console.log(data.error);
                     return
                 }
             }catch(err){
-                alert(err.message);
+                console.log(err.message);
             }
         }
     }

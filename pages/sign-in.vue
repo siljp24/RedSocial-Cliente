@@ -7,7 +7,7 @@
 <script>
 export default {
     layout: 'auth',
-    created (){
+    mounted (){
         const token = localStorage.getItem('token');
         if(token){
             this.$router.push('/home');

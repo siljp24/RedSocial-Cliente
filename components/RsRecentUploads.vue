@@ -23,14 +23,14 @@ export default {
         }
     },
     async mounted(){
-        await loadPost();
+        await this.loadPost();
         this.onFetch = setInterval(async ()=>{
             await this.loadPost()
         }, 2000);
 
     },
     beforeDestroy(){
-        clearInterval(this.onFetch);
+        clearInterval(this.onFetch)
     },
     methods:{
         async loadPost(){
@@ -38,7 +38,7 @@ export default {
                 const res = await fetch('http://localhost:4500/api/post/recentUploads');
                 const data = await res.json();
                 if(data.error){
-                    alert(data.error);
+                    console.log(data.error);
                     return;
                 }
                 this.posts = [];
