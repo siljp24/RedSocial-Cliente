@@ -1,6 +1,6 @@
 <template>
     <div class="rs-image-details">
-        <RsCard :title="post.title" remove>
+        <RsCard :title="post.title" :remove="isOwner">
             <div class="rs-image-details-container">
                 <v-img :src="post.image" height="400px"/>
                 <div class="rs-image-details-container-description">
@@ -38,6 +38,10 @@ export default {
         post:{
             type:Object,
             required:true,
+        },
+        isOwner:{
+            type:Boolean,
+            default:false,
         }
     },
     data(){
