@@ -2,7 +2,7 @@
     <div class="rs-details id">
         <RsImageDetails :post="post" v-if="post" :isOwner="isOwner"/>
         <RsComment class="mt-4" v-if="showComments"/>
-        <RsAllComments class="mt-4" :comments="comments" />
+        <RsAllComments class="mt-4" :comments="comments" v-if="comments.length > 0"/>
     </div>
 </template>
 
