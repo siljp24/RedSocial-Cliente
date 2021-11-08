@@ -4,7 +4,7 @@
         <div class="rs-images-container">
             <v-row class="pa-2">
                 <v-col cols="6" v-for="post in posts" :key="post._id" class="-rs-images-container-item">
-                    <v-img :src="post.image" v-on:click="onClick(post._id)"></v-img>
+                    <v-img :src="post.image" aspect-ratio="1" v-on:click="onClick(post._id)"></v-img>
                 </v-col>
             </v-row>
     

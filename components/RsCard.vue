@@ -12,7 +12,7 @@
                 </div>
                 <div v-else class="d-flex justify-start rs-card-no-remove">
                     <v-icon size="32" class="mt-n3" color="white">{{ icon }}</v-icon>
-                    <p class="headline mx-2 white--text">{{ title }}</p>
+                    <p :class="resize">{{ title }}</p>
                 </div>
             </v-card-title>
             <v-card-text class="rs-card-text pa-1">
@@ -42,6 +42,16 @@ export default {
         header:{
             type: Boolean,
             default: true,
+        }
+    },
+    computed:{
+        resize(){
+            let classes = 'headline mx-2 white--text';
+            const value = this.$vuetify.breakpoint.name;
+            if(['xs'].includes(value)){
+                classes += 'caption';
+            }
+            return classes;
         }
     }
 }

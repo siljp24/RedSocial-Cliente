@@ -2,10 +2,10 @@
     <div class="rs-recent-uploads">
         <RsCard title="Recent Uploads" icon="mdi-folder-multiple-image">
             <v-row class="rs-recent-uploads-container">
-                <v-col cols="3" v-for="post in posts" :key="post._id">
+                <v-col :cols="resize" v-for="post in posts" :key="post._id">
                     <v-card v-on:click="onClick(post._id)">
                         <v-card-text>
-                            <v-img :src="post.image"></v-img>
+                            <v-img aspect-ratio="1" :src="post.image"></v-img>
                         </v-card-text>
                     </v-card>
                 </v-col>
@@ -20,6 +20,15 @@ export default {
         return{
             posts:[],
             onFetch:undefined,
+        }
+    },
+    computed:{
+        resize(){
+           const value = this.$vuetify.breakpoint.name; 
+           if(['xs','sm'].includes(value)){
+               return 12;
+           }
+           return 3;
         }
     },
     async mounted(){

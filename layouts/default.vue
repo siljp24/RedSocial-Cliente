@@ -5,10 +5,10 @@
             <v-main>
                 <v-container>
                     <v-row>
-                        <v-col cols="8">
+                        <v-col :cols="leftColumn">
                             <Nuxt />
                         </v-col>
-                        <v-col cols="4">
+                        <v-col :cols="rightColumn">
                             <RsStats />
                             <RsMostPopular class="mt-4"/>
                             <RsLatestComments class="mt-4"/>
@@ -33,6 +33,22 @@ export default {
             if(!value){
                 this.$router.push('/sign-in');
             }
+        }
+    },
+    computed:{
+        leftColumn(){
+            const value = this.$vuetify.breakpoint.name;
+            if(value === 'xs' || value === 'sm'){
+                return 12;
+            }
+            return 8;
+        },
+        rightColumn(){
+            const value = this.$vuetify.breakpoint.name;
+            if(value === 'xs' || value === 'sm'){
+                return 12;
+            }
+            return 4;
         }
     }
 }
